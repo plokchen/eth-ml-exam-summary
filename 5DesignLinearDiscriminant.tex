@@ -1,0 +1,19 @@
+% -*- root: Main.tex -*-
+\section{Design of Discriminant}
+\subsection*{Stochastic Gradient Descent}
+1. Start arbitrary $w_0 \in \mathbb{R}^d$\\
+2. For $t$ do: Pick $(x_1,y_1) \in_{u.a.r.} D$\\
+$w_{t+1} = w_t - \eta_t \nabla l(w_t,x_1,y_1)$
+\subsection*{Newton optimization}
+$w_{t+1} = w_t - H^{-1} \nabla l(w_t)$, where $H=\nabla^2 l(w_t)$
+\subsection*{Perceptron}
+SGD + Perceptron loss ($\max\{0,-y_i w^T x_i\}$)\\
+Theorem: If D is linearly seperable $\Rightarrow$ Perceptron
+will obtain a linear seperator.
+\subsection*{Fishers LDA}
+$\hat{w} = \argmax_{w} \frac{\mathbf{w}^T\mathbf{S}_T\mathbf{w}}{\mathbf{w}^T\mathbf{S}_W\mathbf{w}} =\frac{\sigma_{between}}{\sigma_{within}} \propto \mathbf{S}_W^{-1}(\bar{x}_1-\bar{x}_2)$\\
+$\mathbf{S}_B = (\bar{x_1}-\bar{x_2}) (\bar{x_1}-\bar{x_2})^T$
+
+$\mathbf{S}_W = \sum_{j=1}^{\text{class1}} (x_{1j}-\bar{x_1})^2 + \sum_{j=1}^{\text{class2}} (x_{2j}-\bar{x_2})^2$
+
+new point $x_0$ class 1 if $(\bar{x}_1-\bar{x}_2)^T \mathbf{S}_W^{-1} x_0 \geq \hat{m} = \frac{1}{2} (\bar{x}_1-\bar{x}_2)^T \mathbf{S}_W^{-1} (\bar{x}_1+\bar{x}_2))$, class 2 otherwise

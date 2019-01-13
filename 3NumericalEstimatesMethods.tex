@@ -1,0 +1,17 @@
+% -*- root: Main.tex -*-
+\section{Numerical Estimates Methods}
+\subsection*{Cross Validation/LOO}
+1. Split the data in $K$ subsets. $D=D_1\cup ... \cup D_k$\\
+$\kappa:[1,n] \rightarrow [1,k]$ denotes subset $(x_i,y_i)$ is element of\\
+2. Train model $\hat{f}^{-v}(x)$ to $K-1$ subsets. Validate with not used subset.\\
+$\hat{f}^{-v} \in \arg\min_{f\in F} \frac{1}{|D/D_v|}\sum{i\not \in Z_v}(y_i-f(x_i))^2$\\
+3. Pred. error $\hat{R}_{CV} = \frac{1}{n} \sum_{i\leq n}(y_i - \hat{f}^{-\kappa(i)}(x_i))^2$\\
+Problem with LOO: unbiased, but high variance.
+\subsection*{Bootstrapping}
+1. Resample data with replacement $D_1,...,D_k$.\\
+2. Train model\\
+3. $S = \frac{1}{B} \sum_{b \leq B} S(D_b)$ (mean)\\
+$\sigma^2(S) = \frac{1}{B-1} \sum_{b \leq B} (S(D_b) -S)^2$ (variance)\\
+Bootstrap works if the deviation between empirical and bootstrap estimator converges in probability to the
+deviation between true parameter value and the empirical
+estimator.

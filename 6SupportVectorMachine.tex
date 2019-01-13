@@ -1,0 +1,56 @@
+% -*- root: Main.tex -*-
+\section{SVM}
+Primal, constrained:\\
+$\min_{w} w^\top w + C \sum_{i=1}^{n} \xi_i,\\$ \text{ s.t. }$ y_i w^\top x_i \geq 1 - \xi_i, \xi_i \geq 0$\\
+Primal, unconstrained (hinge loss):\\
+$\min_{w} w^\top w + C \sum_{i=1}^{n} \max(0, 1-y_i w^\top x_i)$\\
+Dual:\\
+$\max_{\alpha} \sum_{i=1}^{n} \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j x_i^\top x_j,$\\$ \text{ s.t. } 0 \leq \alpha_i \leq C$\\
+Dual to primal: $w^* = \sum_{i=1}^{n} \alpha^*_i y_i x_i$, $\alpha_i > 0$.\\
+Error: $\hat{R}(w) = \sum_{i=1}^n \max \{0,1-y_i w^T x_i\} + \lambda ||w||_2^2$\\
+$\nabla_w \hat{R}(w) = \left\{
+\begin{array}{lr}
+-X^Ty + 2\lambda w \text{ , if }y_iw^Tx_i<1\\
+2\lambda w \text{, otherwise}
+\end{array}\right\}$
+
+% \subsection*{Kernelized SVM}
+% $
+% \max_{\alpha} \sum_{i=1}^{n} \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j k(x_i, x_j), \text{ s.t. } 0 \geq \alpha_i \geq C
+% $\\
+% Classify: $y = sign(\sum_{i=1}^{n} \alpha_i y_i k(x_i, x))$
+
+% \subsection*{How to find $a^T$?}
+% $a = \{w_0,w\}$ used along $\widetilde{x} = \{1,x\}$
+
+% Gradient Descent: $a(k+1) = a(k) - \eta(k) \nabla J(a(k))$
+
+% Newton method: 2nd order Taylor to get $\eta_{opt} = H^{-1}$ with $H=\frac{\partial^2 J}{\partial a_i \partial a_j}$
+
+% $J$ is the cost matrix, popular choice is
+
+
+% \subsection*{Perceptron Algorithm}
+% Stochastic Gradient + Perceptron loss\\
+
+% \emph{Theorem:} If $D$ is linearly seperable $\Rightarrow$ Perceptron will obtain a linear seperator.
+
+% \subsection*{Support Vector Machine}
+% Try to maximize a 'band' around the seperator.\\
+
+% \subsection*{Matrix-Vector Gradient}
+% %multiply transposed matrix to the same side as its occurance w.r.t. derivate variable: $\beta \in \mathbb{R}^d$
+% $\nabla_\beta ( ||y-X\beta||_2^2 + \lambda ||\beta||_2^2 ) = 2X^T (y-X\beta) + 2\lambda \beta$\\
+
+% \subsection*{Hinge loss}
+% loss for support vector machine.\\
+% $l_{SVM}(w,x_i,y_i) = \max \{0,1-y_iw^Tx_i\} + \lambda ||w||_2^2$\\
+% derivation:\\
+% $\frac{\partial}{\partial w_k} l_{SVM}(w,y_i,x_i) = \left \{
+% \begin{array}{lr}
+% 0 \text{ , if } 1-y_iw^Tx_i < 0 \\
+% -y_ix_{i,k} + 2\lambda w_k \text{ , otherwise}
+% \end{array} \right.	$
+
+% \subsection*{Sparse L1-SVM}
+% $\underset{w}{\operatorname{argmin}} \sum \limits_{i=1}^n \max (0, 1-y_i w^T x_i) + \lambda ||w||_1$

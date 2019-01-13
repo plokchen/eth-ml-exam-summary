@@ -1,0 +1,48 @@
+\section{Appendix}
+$f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}},\quad \mathcal{N}(x|\mu, \sigma)$\\
+$f(x) = \frac{1}{\sqrt{(2\pi)^d\det\Sigma}} e^{- \frac{1}{2} (x-\mu)^T \Sigma^{-1} (x-\mu)},\quad \mathcal{N}(x|\mu, \Sigma)$\\
+Condition number: $\kappa(A)=\frac{\sigma_{max}(A)}{\sigma_{min}(A)}$
+\subsection*{Calculus}
+\begin{inparaitem}[\color{red}\textbullet]
+	\item Part.: $\int u(x)v'(x) dx = u(x)v(x) - \int v(x)u'(x) dx$\\
+	\item Chain r.: $\frac{f(y)}{g(x)} = \frac{dz}{dx} \Big|_{x=x_0}= \frac{dz}{dy}\Big|_{z=g(x_0)}\cdot \frac{dy}{dx} \Big|_{x=x_0}$ \\
+	%\item $g_x(1) = g_x(0) + g'_x(0) + \int_{0}^{1} g_x''(s)(1-s) ds$ \\
+	%\item $g(\mathbf{w}+\delta) - g(\mathbf{w}) = %\int_{\mathbf{w}}^{\mathbf{w+\delta}} \nabla g(\mathbf{u}) du = (\int_{0}^{1} \nabla g(\mathbf{w}+t\delta)dt) \cdot \delta$\\
+	\item $\frac{\partial}{\partial \mathbf{x}}(\mathbf{b}^\top \mathbf{x}) = \frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^\top \mathbf{b}) = \mathbf{b}$
+	\item $\frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^\top \mathbf{x}) = 2\mathbf{x}$
+	\item $\frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^\top \mathbf{A}\mathbf{x}) = (\mathbf{A}^\top + \mathbf{A})\mathbf{x} =^{\text{if \textbf{A} sym.}} 2\mathbf{A}\mathbf{x}$
+	\item $\frac{\partial}{\partial \mathbf{x}}(\mathbf{b}^\top \mathbf{A}\mathbf{x}) = \mathbf{A}^\top \mathbf{b}$
+	\item $\frac{\partial}{\partial \mathbf{X}}(\mathbf{c}^\top \mathbf{X} \mathbf{b}) = \mathbf{c}\mathbf{b}^\top$
+	\item $\frac{\partial}{\partial \mathbf{X}}(\mathbf{c}^\top \mathbf{X}^\top \mathbf{b}) = \mathbf{b}\mathbf{c}^\top$
+	\item $\frac{\partial}{\partial \mathbf{x}}(\| \mathbf{x}-\mathbf{b} \|_2) = \frac{\mathbf{x}-\mathbf{b}}{\|\mathbf{x}-\mathbf{b}\|_2}$
+	\item $\frac{\partial}{\partial \mathbf{x}}(\|\mathbf{x}\|^2_2) = \frac{\partial}{\partial \mathbf{x}} (\|\mathbf{x}^\top \mathbf{x}\|_2) = 2\mathbf{x}$
+	\item $\frac{\partial}{\partial \mathbf{X}}(\|\mathbf{X}\|_F^2) = 2\mathbf{X}$ \\
+	\item $\text{sigmoid}(x) = \sigma(x) = \frac{1}{1+\exp(-x)}$
+	\item $\nabla \text{sigmoid}(x) = \text{sigmoid}(x)(1-\text{sigmoid}(x))$
+	\item $\nabla \text{tanh}(x) = 1-\text{tanh}^2(x)$
+\end{inparaitem}
+\subsection*{Probability / Statistics}
+\begin{compactdesc}
+	\item[Sum Rule] $P(X=x_i) = \sum_{j=1}^{J} p(X=x_i,Y=y_i)$\\
+	\item $\forall y \in Y: \sum_{x \in X} P(x|y) = 1$ (property for any fixed $y$)\\
+	\item[Product rule] $ P(X, Y) = P(Y|X) P(X)$ \\
+	\item[Independence] $P(X, Y) = P(X)P(Y)$ \\
+	\item[Bayes' Rule]$ P(Y|X) = \frac{P(X|Y)P(Y)}{P(X)}\frac{P(X|Y)P(Y)}{\sum\limits^k_{i=1}P(X|Y_i)P(Y_i)}$\\
+	\item[Conditional independence] $ X\bot Y|Z \\P(X,Y|Z) = P(X|Z)P(Y|Z) \\P(X|Z,Y) = P(X|Z)$\\		\item $P(x_1, \ldots, x_n) = \prod_{i=1}^n P(x_i)$ (iff IID)
+	\item[MGF] $\mathbf{M}_X(t)=\mathbb{E}[e^{\mathbf{t}^T \mathbf{X}}]$, $\mathbf{X}=(X_1,.., X_n) $
+	\item[Conj. prior] if $p(\theta|X)$ is from the same distribution family as $p(\theta)$, then the
+prior distribution $p(\theta)$ is called conjugate to $p(X|\theta)$. Gamma conjugate to Exponential, normal conjugate to normal.\\ Show $p(\theta|X) \sim p(X|\theta)p(\theta)$.
+\end{compactdesc}
+\subsection*{Expectation}
+\begin{compactdesc}
+	\item $\mathbb{E}[X] = \int_{-\infty}^{\infty} x p(x) dx$
+	\item $\mathbb{E}[XY] = \mathbb{E}[X]  \mathbb{E}[Y]$, if X \& Y indep.
+	\item $\text{Var}(X) = \int_x (x-\mathbb{E}[X])^2 p(x) dx$
+	\item $\text{Var}(X) = \mathbb{E}[X^2]-(\mathbb{E}[X])^2$ 
+	\item $\text{Cov}[X, Y] = \mathbb{E}(X-\mathbb{E}X)(Y-\mathbb{E}Y)$
+	\item $\text{Cov}[X, Y] = \int_x \int_y p(x,y) (x-\mu_x)(y-\mu_y) dx dy$
+\end{compactdesc}
+\subsection*{Jensen's inequality}
+	X:random variable \& $\varphi$:convex function $\rightarrow$ $\varphi(\mathbb{E}[X]) \leq \mathbb{E}[\varphi(X)]$
+
+

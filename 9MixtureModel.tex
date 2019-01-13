@@ -1,0 +1,41 @@
+% -*- root: Main.tex -*-
+\section{Mixture Model}
+\subsection*{Latent variable}
+We denote the latent variable indicating the component the point is sampled from by Z, which takes on values in $\{1,...,k\}$. ($\gamma_j$)
+% \subsection*{EM for GMM}
+% Compute cluster membership weight for each point $x_i$ in cluster k, given $\theta_k=(\mu_k,\Sigma_k)$. $\mathbb{E}[z_k|x_i]= P(z_k=1|x_i; \theta)$ \textbf{E}:  $\gamma_k(\mathbf{x}_i) = \frac{P(z_k=1;\theta_k) P(x_i|z_k=1;\theta_k)}{P(x_i;\theta_k)} = 
+% 	\frac{\boldsymbol{\pi}_k \mathcal{N}(\mathbf{x}_n | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)}{\sum_{j=1}^K \boldsymbol{\pi}_j \mathcal{N}(\mathbf{x}_n | \boldsymbol{\mu}_j, \boldsymbol{\Sigma}_j)}$
+% % 	\item[M:] $\sum_{i=1}^{n} \log P(x_i,z_i;\theta)=\\
+% % 	\sum_{i=1}^{n} \log[\sum_{k=1}^{K} \pi_k P(x_i|z_i;\theta_k)] =
+% % 	\sum_{i=1}^{n} \log[\sum_{k=1}^{K} \gamma_k(x_i)\frac{\pi_k P(x_i|z_i;\theta_k)}{\gamma_k(x_i)}] \geq
+% % 	\sum\limits_{i=1}^{n} \sum\limits_{k=1}^{K}\gamma_k(x_i)[\log P(x_i|z_i;\theta_k) + \log \pi_k - \log \gamma_k(x_i)]$\\
+% % 	$\frac{\partial}{\partial \pi_k} \sum\limits_{i=1}^{n} \sum\limits_{k=1}^{K}\gamma_k(x_i)[\log P(x_i|z_i;\theta_k) + \log \pi_k - \log \gamma_k(x_i)] + \lambda (\sum\limits_{j=1}^{K} \pi_j -1) \stackrel{\text{!}}{=} 0 \Leftrightarrow \pi_k = \sum\limits_{i=1}^{N} \frac{ \gamma_k(x_i)}{-\lambda}$;$ \sum\limits_{k=1}^{K} \pi_k = 1 =\sum_{k,n=1}^{K,N} \gamma_k(\mathbf{x}_i)\frac{1}{-\lambda} \Leftrightarrow \lambda = N$
+% % 	$\boldsymbol{\mu}_k := \frac{\sum_{n=1}^N \gamma_k(x_i) \mathbf{x}_n}{\sum_{n=1}^N \gamma_k(x_i)}$, and $\Sigma_k = \frac{\sum_{n=1}^N \gamma_k(x_i) (\mathbf{x}_n - \boldsymbol{\mu}_k)(\mathbf{x}_k - \boldsymbol{\mu}_k)^T}{\sum_{n=1}^N \gamma_k(x_i)}$
+% \textbf{M}: $(\mu^*,\Sigma^*) = \argmax_\theta \mathbb{E}_{\gamma}(\log[p(x|\theta)]) = \argmax_\theta \sum_{i=1}^{n}{\gamma_i(\log[p(x_i|\theta)])}$. $\frac{\partial}{\partial\mu},\frac{\partial}{\partial\Sigma}=0\rightarrow \boldsymbol{\mu}_k:=\frac{\sum_{n=1}^N \gamma_k(x_i) \mathbf{x}_n}{\sum_{n=1}^N \gamma_k(x_i)}$, $\Sigma_k = \frac{\sum_{n=1}^N \gamma_k(x_i) (\mathbf{x}_n - \boldsymbol{\mu}_k)(\mathbf{x}_k - \boldsymbol{\mu}_k)^T}{\sum_{n=1}^N \gamma_k(x_i)}$
+
+\subsection*{E-step: Posterior probabilities}
+$\gamma_j^t(x_i) = P(Z=j|x_i, \theta_t) = \frac{P(x_i|Z=j, \theta_t) P(Z=j|\theta_t)}{P(x_i;\theta_t)}$ \\
+$= \frac{\boldsymbol{\pi}_j \mathcal{N}(\mathbf{x}_i | \boldsymbol{\mu}_j, \boldsymbol{\Sigma}_j)}{\sum_{k=1}^K \boldsymbol{\pi}_k \mathcal{N}(\mathbf{x}_i | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)}$
+
+\subsection*{M-step: maximizing expected log likelihood}
+$\mathbb{E}_{\gamma^t}[\log P(\mathcal{D;\theta})] = 
+\mathbb{E}_{\gamma^t}[\log \Pi_{i=1}^nP(x_i,z_i;\theta)] = $ \\
+$\sum_{i=1}^n \mathbb{E}_{\gamma^t}[\log P(x_i,z_i;\theta)] = $ \\
+$\sum_{i=1}^n \sum_{j=1}^k \gamma_j^t(x_i) \log (P(x_i|z_i=j;\theta) P(z_i=j;\theta))$ \\
+$\theta_{t+1} = \underset{\theta}{\operatorname{argmax}} \mathbb{E}_{\gamma^t}[\log P(\mathcal{D;\theta})]$ \\
+$\boldsymbol{\mu}_j:=\frac{\sum_{i=1}^N \gamma_j(x_i) \mathbf{x}_i}{\sum_{i=1}^N \gamma_j(x_i)}$, $\Sigma_j = \frac{\sum_{i=1}^N \gamma_j(x_i) (\mathbf{x}_i - \boldsymbol{\mu}_j)(\mathbf{x}_j - \boldsymbol{\mu}_j)^T}{\sum_{i=1}^N \gamma_j(x_i)}$
+$\pi_j = \frac{1}{N}\sum_{i=1}^{N}\gamma_j(x_i)$
+
+\subsection*{Gaussian Mixture Models }
+$p(\mathbf{x}) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x} | \boldsymbol{\mu}_k, \Sigma_k)$
+% \begin{compactdesc}
+% 	\item[Assignment variable:] $\mathbf{z}_k \in \{0, 1\}$, $\sum_{k=1}^K \mathbf{z}_k = 1$, $\operatorname{Pr}(\mathbf{z}_k = 1) = \boldsymbol{\pi}_k \Leftrightarrow p(\mathbf{z}) = \prod_{k=1}^K \boldsymbol{\pi}_k^{\mathbf{z}_k}$, $\pi_k=$mixing prop. of cluster k
+% 	\item[Complete data distribution:] $p(\mathbf{x}, \mathbf{z}) = \prod_{k=1}^K \left( \boldsymbol{\pi}_k \mathcal{N}(\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k) \right)^{\mathbf{z}_k}$
+% 	\item[Likelihood of observed data (iid) \\ $\mathbf{X=[x_1,..,x_N]}$:] $p(\mathbf{X} | \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \prod_{n=1}^N p(\mathbf{x}_n) = \prod_{n=1}^N \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_n | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$
+% 	\item[Log-likelihood:] $\ln p(\mathbf{X} | \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Sigma}) =\break \sum_{i=1}^N \ln \left( \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_i | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k) \right)$
+% \end{compactdesc}
+
+\textbf{Assignment variable:} $\mathbf{z}_k \in \{0, 1\}$, $\sum_{k=1}^K \mathbf{z}_k = 1$, $\operatorname{Pr}(\mathbf{z}_k = 1) = \boldsymbol{\pi}_k \Leftrightarrow p(\mathbf{z}) = \prod_{k=1}^K \boldsymbol{\pi}_k^{\mathbf{z}_k}$, \\ $\pi_k=$ mixing prop. of cluster k \\
+\textbf{Complete data distribution:} \\ $p(\mathbf{x}, \mathbf{z}) = \prod_{k=1}^K \left( \boldsymbol{\pi}_k \mathcal{N}(\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k) \right)^{\mathbf{z}_k}$ \\
+\textbf{Likelihood of observed data (iid)} $\mathbf{X=[x_1,..,x_N]}$: $p(\mathbf{X} | \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \prod_{n=1}^N p(\mathbf{x}_n | \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \prod_{n=1}^N \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_n | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ \\
+\textbf{Log-likelihood:} $\log p(\mathbf{X} | \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Sigma}) =\break \sum_{i=1}^N \log \left( \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_i | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k) \right)$
